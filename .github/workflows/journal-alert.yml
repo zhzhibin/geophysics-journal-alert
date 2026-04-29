@@ -1,0 +1,46 @@
+name: Geophysics Journal Alert
+
+on:
+  schedule:
+    # 每天 UTC 00:00 运行
+    # 对应北京时间 / 台北时间每天早上 08:00
+    - cron: "0 0 * * *"
+
+  # 允许你在 GitHub 网页端手动运行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-alert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run journal alert
+        env:
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: python main.py
+
+      - name: Commit updated DOI history
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add seen_dois.json
+          git commit -m "Update seen DOIs" || echo "No changes to commit"
+          git push
