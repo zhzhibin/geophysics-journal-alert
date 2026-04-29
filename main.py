@@ -16,13 +16,20 @@ from googleapiclient.discovery import build
 # 这里用的是常见电子版 ISSN。
 JOURNALS = {
     "Geophysical Research Letters": "1944-8007",
-    "JGR Solid Earth": "2169-9356",
-    "JGR Atmospheres": "2169-8996",
-    "JGR Oceans": "2169-9291",
-    "JGR Planets": "2169-9100",
-    "JGR Space Physics": "2169-9402",
+    "Journal of Geophysical Research: Solid Earth": "2169-9356",
     "Tectonics": "1944-9194",
+    "Earth and Planetary Science Letters": "0012-821X",
+    "Nature Geoscience": "1752-0908",
+    "Geophysical Journal International": "1365-246X",
+    "Bulletin of the Seismological Society of America": "1943-3573",
+    "Seismological Research Letters": "1938-2057",
+    "Tectonophysics": "0040-1951",
+    "Journal of Structural Geology": "0191-8141",
+    "Geochemistry, Geophysics, Geosystems": "1525-2027",
     "Reviews of Geophysics": "1944-9208",
+    "Communications Earth & Environment": "2662-4435",
+    "GSA Bulletin": "1943-2674",
+    "Geology": "1943-2682",
 }
 
 # 每次抓取过去几天的新文章
